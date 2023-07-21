@@ -26,12 +26,18 @@ class GetMessages(Resource):
     def get(self):
         global messages
         return {"messages" : messages}
+    
+class DeleteMessages(Resource):
+    def get(self):
+        global messages
+        messages.clear()
+        return {"message" : "chat cleared"}
 
 
         
 api.add_resource(SendMessages,"/chat/<string:username>/<string:message>")
 api.add_resource(GetMessages,'/chat/getmessages')
-
+api.add_resource(DeleteMessages,'/chat/delete')
 
 @app.route("/")
 def homePage():
@@ -43,4 +49,4 @@ def chatApp():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
