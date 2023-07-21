@@ -156,6 +156,8 @@
           }
           
     </style>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -198,6 +200,33 @@
         </form>
       </section>
       <script>
+        swal({  
+          title: "This is a simple chat app and the messages will be deleted every 2 hours no sign up required just enjoy!",  
+          text: "Click!",  
+          icon: "success",  
+          button: "oh yes!",  
+        });  
+function deletemessages(){
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET','/chat/delete',true);
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+
+      var response = JSON.parse(xhr.responseText);
+      console.log(response)
+    }
+    else {
+      console.log("Error")
+    }
+
+  }
+  xhr.onerror = function() {
+    console.error('Network error occurred');
+  };
+
+  xhr.send();
+}
 
 function sendMessage(){
     var msgrInput = document.querySelector(".msger-input")
@@ -285,6 +314,7 @@ function getmessages () {
    
 }
 setInterval(getmessages,1000)
+setInterval(deletemessages,7200000)
       </script>
 </body>
 </html>
